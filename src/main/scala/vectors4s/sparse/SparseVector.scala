@@ -1,4 +1,4 @@
-package vec2d4s.sparse
+package vectors4s.sparse
 
 /**
   * LoamStream - Language for Omics Analysis Management

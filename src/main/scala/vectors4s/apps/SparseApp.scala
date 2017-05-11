@@ -1,9 +1,9 @@
-package vec2d4s.apps
+package vectors4s.apps
 
-import vec2d4s.sparse.SparseVector
+import vectors4s.sparse.SparseVector
 
 /**
-  * LoamStream - Language for Omics Analysis Management
+  * vectors4s
   * Created by oruebenacker on 5/10/17.
   */
 object SparseApp extends App {
