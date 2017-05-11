@@ -1,35 +1,39 @@
 package vectors4s.sparse
 
+import vectors4s.AbstractVector
+
 /**
   * LoamStream - Language for Omics Analysis Management
   * Created by oruebenacker on 5/10/17.
   */
-case class SparseVector[T](coeffs: Map[T, Double]) {
+case class SparseVector[I](coeffs: Map[I, Double]) extends AbstractVector[I, SparseVector[I]] {
 
-  def *(a: Double): SparseVector[T] = SparseVector(coeffs.mapValues(_*a).view.force)
-  def /(a: Double): SparseVector[T] = SparseVector(coeffs.mapValues(_/a).view.force)
+  override def indices: Iterable[I] = coeffs.keys
+  override def apply(index: I): Double = coeffs.getOrElse(index, 0.0)
 
-  def unary_- : SparseVector[T] = SparseVector(coeffs.mapValues(-_).view.force)
+  override def *(a: Double): SparseVector[I] = SparseVector(coeffs.mapValues(_*a).view.force)
+  override def /(a: Double): SparseVector[I] = SparseVector(coeffs.mapValues(_/a).view.force)
 
-  def +(o: SparseVector[T]): SparseVector[T] = {
+  override def unary_- : SparseVector[I] = SparseVector(coeffs.mapValues(-_).view.force)
+
+  override def +(o: SparseVector[I]): SparseVector[I] = {
     val allKeys = coeffs.keySet ++ o.coeffs.keySet
     SparseVector(allKeys.map(key => (key, coeffs.getOrElse(key, 0.0) + o.coeffs.getOrElse(key, 0.0))).toMap)
   }
 
-  def -(o: SparseVector[T]): SparseVector[T] = {
+  override def -(o: SparseVector[I]): SparseVector[I] = {
     val allKeys = coeffs.keySet ++ o.coeffs.keySet
     SparseVector(allKeys.map(key => (key, coeffs.getOrElse(key, 0.0) - o.coeffs.getOrElse(key, 0.0))).toMap)
   }
 
-  def lenSquared: Double = coeffs.mapValues(coeff => coeff*coeff).values.sum
+  override def lenSquared: Double = coeffs.mapValues(coeff => coeff*coeff).values.sum
 
-  def len: Double = Math.sqrt(lenSquared)
+  override def normalized: SparseVector[I] = super.normalized
 
-  def normalized: SparseVector[T] = /(len)
-
+  override def zero: SparseVector[I] = SparseVector.zero
 }
 
 object SparseVector {
-  def from[T](coeffs: (T, Double)*): SparseVector[T] = SparseVector[T](coeffs.toMap)
-  def zero[T]: SparseVector[T] = SparseVector[T](Map.empty)
+  def from[I](coeffs: (I, Double)*): SparseVector[I] = SparseVector[I](coeffs.toMap)
+  def zero[I]: SparseVector[I] = SparseVector[I](Map.empty)
 }
