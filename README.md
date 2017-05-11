@@ -1,2 +1,2 @@
-# vec2d4s
-A 2D vector graphics library for Scala.
+# vectors4s
+A vector library for Scala.
