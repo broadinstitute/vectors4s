@@ -1,6 +1,6 @@
 package vectors4s.sparse
 
-import vectors4s.AbstractVector
+import vectors4s.base.AbstractVector
 
 /**
   * LoamStream - Language for Omics Analysis Management

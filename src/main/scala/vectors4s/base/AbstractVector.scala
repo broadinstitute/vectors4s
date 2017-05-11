@@ -1,4 +1,4 @@
-package vectors4s
+package vectors4s.base
 
 /**
   * vectors4s

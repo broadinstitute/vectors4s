@@ -1,6 +1,6 @@
 package vectors4s.util
 
-import vectors4s.AbstractVector
+import vectors4s.base.AbstractVector
 
 /**
   * vectors4s
