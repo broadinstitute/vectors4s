@@ -1,4 +1,4 @@
-name := "vec2d4s"
+name := "vectors4s"
 organization := "org.broadinstitute"
 
 version := "0.1"
